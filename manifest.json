@@ -12,6 +12,7 @@
     }
   ],
   "main": "index.js",
+  "hash": "pawsy",
   "vendetta": {
     "icon": "ic_stage_music"
   },
