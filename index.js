@@ -490,7 +490,7 @@
         return;
       }
       unregSinc = registerCommand(buildCmd("sincronizar", "Forçar sincronização do Last.fm"));
-      unregPaw = registerCommand(buildCmd("lastfm", "Forçar sincronização do Last.fm"));
+      unregPaw = registerCommand(buildCmd("pawsync", "Forçar sincronização do Last.fm"));
 
       const u = String(storage.username || "").trim();
       if (!u) {
