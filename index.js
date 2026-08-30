@@ -438,7 +438,7 @@
         React.createElement(
           ReactNative.View,
           { style: { flex: 1 } },
-          React.createElement(Forms.FormText, { style: { fontSize: 30, fontWeight: "900", lineHeight: 32 } }, "PawSync"),
+          React.createElement(Forms.FormText, { style: { fontSize: 30, fontWeight: "900", lineHeight: 32 } }, "Last.fm"),
           React.createElement(Forms.FormText, { style: { opacity: 0.7, fontSize: 13, marginTop: 4 } }, "Exiba o que você está ouvindo no Last.fm de forma fácil e prática.")
         )
       ),
@@ -490,11 +490,11 @@
         return;
       }
       unregSinc = registerCommand(buildCmd("sincronizar", "Forçar sincronização do Last.fm"));
-      unregPaw = registerCommand(buildCmd("pawsync", "Forçar sincronização do Last.fm"));
+      unregPaw = registerCommand(buildCmd("lastfm", "Forçar sincronização do Last.fm"));
 
       const u = String(storage.username || "").trim();
       if (!u) {
-        showToast("PawSync: Configure seu username", getAssetIDByName("ic_info"));
+        showToast("lastfm: Configure seu username", getAssetIDByName("ic_info"));
       } else {
         showToast("ativo!", getAssetIDByName("CheckIcon"));
         tick(false);
