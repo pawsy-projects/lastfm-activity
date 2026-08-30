@@ -1,4 +1,3 @@
-
 (() => {
   const { findByProps } = vendetta.metro;
   const { storage } = vendetta.plugin;
@@ -7,15 +6,14 @@
   const { React, ReactNative, NavigationNative } = vendetta.metro.common;
   const { Forms } = vendetta.ui.components;
   const { useProxy } = vendetta.storage;
+  const { registerCommand } = vendetta.commands;
 
   const FluxDispatcher = findByProps("dispatch", "subscribe");
   const tokenMod = findByProps("getToken");
   const BASE = "https://pawsy-rapositosas-projects-99beaca1.vercel.app";
 
   const LASTFM_LOGO = "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/196_Lastfm_Square_logo_logos-1024.png";
-  const DEFAULT_AVATAR = "https://cdn.discordapp.com/embed/avatars/0.png";
 
-  // Defaults
   if (storage.username === undefined) storage.username = "";
   if (storage.intervalSec == null) storage.intervalSec = 5;
   if (storage.toastOnChange == null) storage.toastOnChange = false;
@@ -27,6 +25,9 @@
   let trackStartedAt = null;
   let trackDurationSec = 210;
   let validating = false;
+  let unregSinc = null;
+  let unregPaw = null;
+
   const assetCache = {};
   const deezerCache = {};
 
@@ -247,10 +248,6 @@
     timer = setInterval(() => tick(false), sec * 1000);
   }
 
-  const { registerCommand } = vendetta.commands;
-  let unregSinc = null;
-  let unregPaw = null;
-
   const buildCmd = (name, desc) => ({
     name,
     displayName: name,
@@ -329,8 +326,6 @@
     return React.createElement(
       ReactNative.ScrollView,
       { style: { flex: 1 }, contentContainerStyle: { padding: 16 } },
-
-     
       React.createElement(
         ReactNative.View,
         { style: { flexDirection: "row", alignItems: "center", marginBottom: 24, marginTop: 8 } },
@@ -347,7 +342,6 @@
           )
         )
       ),
-
       React.createElement(
         Forms.FormSection,
         { title: "REGISTRO:" },
@@ -367,7 +361,6 @@
     );
   }
 
- 
   function SettingsScreen() {
     useProxy(storage);
     return React.createElement(
@@ -417,7 +410,6 @@
     );
   }
 
-  // UI Principal
   function Settings() {
     useProxy(storage);
     const navigation = NavigationNative?.useNavigation?.();
@@ -436,8 +428,6 @@
     return React.createElement(
       ReactNative.ScrollView,
       { style: { flex: 1 }, contentContainerStyle: { padding: 16, paddingBottom: 40 } },
-
-      
       React.createElement(
         ReactNative.View,
         { style: { flexDirection: "row", alignItems: "center", marginBottom: 24, marginTop: 8 } },
@@ -452,8 +442,6 @@
           React.createElement(Forms.FormText, { style: { opacity: 0.7, fontSize: 13, marginTop: 4 } }, "Exiba o que você está ouvindo no Last.fm de forma fácil e prática.")
         )
       ),
-
-     
       React.createElement(
         Forms.FormSection,
         { title: "OPÇÕES" },
@@ -472,7 +460,6 @@
           onPress: () => navigateTo("Configurações", SettingsScreen)
         })
       ),
-
       React.createElement(
         Forms.FormSection,
         { title: "CRÉDITOS:", style: { marginTop: 16 } },
@@ -480,7 +467,7 @@
           label: "Vi",
           subLabel: "Dev",
           leading: React.createElement(ReactNative.Image, {
-            source: { uri: "https://pawsy-rapositosas-projects-99beaca1.vercel.app/api/discord/avatar?id=1117890204569718885" },
+            source: { uri: BASE + "/api/discord/avatar?id=1117890204569718885" },
             style: { width: 36, height: 36, borderRadius: 10, backgroundColor: "#2b2d31" }
           })
         }),
@@ -488,7 +475,7 @@
           label: "Pawsy",
           subLabel: "API",
           leading: React.createElement(ReactNative.Image, {
-            source: { uri: "https://pawsy-rapositosas-projects-99beaca1.vercel.app/api/discord/avatar?id=1344306431913885727" },
+            source: { uri: BASE + "/api/discord/avatar?id=1344306431913885727" },
             style: { width: 36, height: 36, borderRadius: 10, backgroundColor: "#2b2d31" }
           })
         })
@@ -503,6 +490,7 @@
         return;
       }
       unregSinc = registerCommand(buildCmd("sincronizar", "Forçar sincronização do Last.fm"));
+      unregPaw = registerCommand(buildCmd("pawsync", "Forçar sincronização do Last.fm"));
 
       const u = String(storage.username || "").trim();
       if (!u) {
