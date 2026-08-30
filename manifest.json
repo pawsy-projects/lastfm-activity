@@ -1,0 +1,19 @@
+{
+  "name": "Last.fm",
+  "description": "🎸 Exiba o que você está ouvindo no Last.fm em seu perfil do discord de forma fácil e prática.",
+  "authors": [
+    {
+      "name": "Pawsy",
+      "id": "1344306431913885727"
+    },
+    {
+      "name": "Vi",
+      "id": "1117890204569718885"
+    }
+  ],
+  "main": "index.ts",
+  "vendetta": {
+    "icon": "ic_stage_music"
+  },
+  "version": "1.0.0"
+}
