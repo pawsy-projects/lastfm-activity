@@ -11,7 +11,7 @@
       "id": "1117890204569718885"
     }
   ],
-  "main": "index.ts",
+  "main": "index.js",
   "vendetta": {
     "icon": "ic_stage_music"
   },
